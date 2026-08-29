@@ -95,24 +95,26 @@ framework.
         {% if recipes %}
           <div class="recipe-grid">
             {% for recipe in recipes %}
-              <article class="recipe-card">
-                <div class="recipe-image">
-                  {% if recipe.has_photo %}
-                    <img
-                      src="{{ request.url_for('recipe_photo', recipe_id=recipe.id) }}"
-                      alt=""
-                      loading="lazy"
-                    >
-                  {% else %}
-                    <div class="image-placeholder" aria-hidden="true">
-                      <span>Recipe</span>
-                    </div>
-                  {% endif %}
-                </div>
-                <div class="recipe-card-body">
-                  <h3>{{ recipe.title }}</h3>
-                </div>
-              </article>
+              <a href="{{ request.url_for('recipe_detail', recipe_id=recipe.id) }}" class="recipe-card-link">
+                <article class="recipe-card">
+                  <div class="recipe-image">
+                    {% if recipe.has_photo %}
+                      <img
+                        src="{{ request.url_for('recipe_photo', recipe_id=recipe.id) }}"
+                        alt=""
+                        loading="lazy"
+                      >
+                    {% else %}
+                      <div class="image-placeholder" aria-hidden="true">
+                        <span>Recipe</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="recipe-card-body">
+                    <h3>{{ recipe.title }}</h3>
+                  </div>
+                </article>
+              </a>
             {% endfor %}
           </div>
         {% else %}
