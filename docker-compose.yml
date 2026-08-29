@@ -1,0 +1,50 @@
+# -----------------------------------------------------------------------------
+# Recipe Box portable container topology.
+# This file intentionally defines exactly two services: "app" and "db".
+# Keeping the file free of platform-specific paths and helper services makes
+# it usable unchanged on Docker Desktop or another standard Docker host.
+# -----------------------------------------------------------------------------
+
+services:
+  # The web service builds from the local Dockerfile and receives all runtime
+  # configuration from .env. It waits for PostgreSQL to report healthy before
+  # starting, which avoids racing the database during a fresh startup.
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  # PostgreSQL is the only supporting service. The named volume keeps recipe
+  # data outside the container lifecycle without relying on host filesystem
+  # paths, so it remains portable across macOS, Linux, and compatible hosts.
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - recipe_box_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      # The doubled dollar signs defer variable expansion to the database
+      # container, where these values are supplied by the environment above.
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  # A named volume, rather than a bind mount, is portable and survives
+  # container recreation until explicitly removed with --volumes.
+  recipe_box_postgres_data:

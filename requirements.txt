@@ -1,0 +1,13 @@
+# -----------------------------------------------------------------------------
+# Runtime dependencies for Recipe Box.
+# Each dependency is listed only because the current FastAPI/Jinja2/PostgreSQL
+# application needs it. Keeping this list explicit avoids unnecessary image
+# size and memory overhead.
+# -----------------------------------------------------------------------------
+
+fastapi  # HTTP framework and application lifecycle hooks.
+uvicorn  # Small ASGI server used with one worker in Docker.
+psycopg2-binary  # Lightweight synchronous PostgreSQL driver for queries/migrations.
+python-dotenv  # Loads the standard local .env file before config validation.
+jinja2  # Renders server-side HTML templates.
+python-multipart  # Parses HTML forms and uploaded recipe photo files.

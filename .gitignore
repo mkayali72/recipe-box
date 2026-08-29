@@ -1,0 +1,18 @@
+# -----------------------------------------------------------------------------
+# Files that should stay local to a Recipe Box development environment.
+# Secrets, generated Python files, and local Docker data must not be committed.
+# -----------------------------------------------------------------------------
+
+.env
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+dist/
+build/

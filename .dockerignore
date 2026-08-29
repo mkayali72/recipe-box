@@ -1,0 +1,14 @@
+# -----------------------------------------------------------------------------
+# Files excluded from the Recipe Box application image build context.
+# This keeps the image build small and prevents local secrets from entering it.
+# -----------------------------------------------------------------------------
+
+.env
+.git/
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+README.md
