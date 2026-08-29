@@ -67,7 +67,43 @@ multipart file upload, repeated ingredient rows, and a tiny vanilla JS helper.
             {% for ingredient in ingredients %}
               <div class="ingredient-form-row">
                 <input type="text" name="ingredient_quantity" value="{{ ingredient.quantity }}" placeholder="Qty" aria-label="Quantity">
-                <input type="text" name="ingredient_unit" value="{{ ingredient.unit }}" placeholder="Unit" aria-label="Unit">
+                <select name="ingredient_unit" aria-label="Unit">
+                  <option value="">Unit</option>
+                  <optgroup label="Weight / Mass (Best for baking and precise costing)">
+                    <option value="g" {% if ingredient.unit == "g" %}selected{% endif %}>g (Gram)</option>
+                    <option value="kg" {% if ingredient.unit == "kg" %}selected{% endif %}>kg (Kilogram)</option>
+                    <option value="oz" {% if ingredient.unit == "oz" %}selected{% endif %}>oz (Ounce)</option>
+                    <option value="lb" {% if ingredient.unit == "lb" %}selected{% endif %}>lb (Pound)</option>
+                  </optgroup>
+                  <optgroup label="Volume (Best for liquids and standard culinary measures)">
+                    <option value="ml" {% if ingredient.unit == "ml" %}selected{% endif %}>ml (Milliliter)</option>
+                    <option value="l" {% if ingredient.unit == "l" %}selected{% endif %}>l (Liter)</option>
+                    <option value="tsp" {% if ingredient.unit == "tsp" %}selected{% endif %}>tsp (Teaspoon)</option>
+                    <option value="tbsp" {% if ingredient.unit == "tbsp" %}selected{% endif %}>tbsp (Tablespoon)</option>
+                    <option value="fl oz" {% if ingredient.unit == "fl oz" %}selected{% endif %}>fl oz (Fluid Ounce)</option>
+                    <option value="cup" {% if ingredient.unit == "cup" %}selected{% endif %}>cup (Cup)</option>
+                    <option value="pt" {% if ingredient.unit == "pt" %}selected{% endif %}>pt (Pint)</option>
+                    <option value="qt" {% if ingredient.unit == "qt" %}selected{% endif %}>qt (Quart)</option>
+                    <option value="gal" {% if ingredient.unit == "gal" %}selected{% endif %}>gal (Gallon)</option>
+                  </optgroup>
+                  <optgroup label="Counts and Whole Units (For discrete items)">
+                    <option value="pcs" {% if ingredient.unit == "pcs" %}selected{% endif %}>pcs (Pieces)</option>
+                    <option value="ea" {% if ingredient.unit == "ea" %}selected{% endif %}>ea (Each)</option>
+                    <option value="clove" {% if ingredient.unit == "clove" %}selected{% endif %}>clove (For garlic)</option>
+                    <option value="sprig" {% if ingredient.unit == "sprig" %}selected{% endif %}>sprig (For herbs)</option>
+                    <option value="stalk" {% if ingredient.unit == "stalk" %}selected{% endif %}>stalk (For celery)</option>
+                    <option value="head" {% if ingredient.unit == "head" %}selected{% endif %}>head (For cabbage/lettuce)</option>
+                    <option value="slice" {% if ingredient.unit == "slice" %}selected{% endif %}>slice (For bread/cheese)</option>
+                  </optgroup>
+                  <optgroup label="Packages and Bulk (Useful for inventory or prep recipes)">
+                    <option value="can" {% if ingredient.unit == "can" %}selected{% endif %}>can (Can)</option>
+                    <option value="bag" {% if ingredient.unit == "bag" %}selected{% endif %}>bag (Bag)</option>
+                    <option value="box" {% if ingredient.unit == "box" %}selected{% endif %}>box (Box)</option>
+                    <option value="bunch" {% if ingredient.unit == "bunch" %}selected{% endif %}>bunch (Bunch)</option>
+                    <option value="pinch" {% if ingredient.unit == "pinch" %}selected{% endif %}>pinch (Pinch)</option>
+                    <option value="dash" {% if ingredient.unit == "dash" %}selected{% endif %}>dash (Dash)</option>
+                  </optgroup>
+                </select>
                 <input class="ingredient-name-input" type="text" name="ingredient_name" value="{{ ingredient.name }}" placeholder="Ingredient name" aria-label="Ingredient name">
                 <button class="remove-ingredient" type="button" data-remove-ingredient aria-label="Remove ingredient row">Remove</button>
               </div>
@@ -113,7 +149,43 @@ multipart file upload, repeated ingredient rows, and a tiny vanilla JS helper.
       <template id="ingredient-row-template">
         <div class="ingredient-form-row">
           <input type="text" name="ingredient_quantity" placeholder="Qty" aria-label="Quantity">
-          <input type="text" name="ingredient_unit" placeholder="Unit" aria-label="Unit">
+          <select name="ingredient_unit" aria-label="Unit">
+            <option value="">Unit</option>
+            <optgroup label="Weight / Mass (Best for baking and precise costing)">
+              <option value="g">g (Gram)</option>
+              <option value="kg">kg (Kilogram)</option>
+              <option value="oz">oz (Ounce)</option>
+              <option value="lb">lb (Pound)</option>
+            </optgroup>
+            <optgroup label="Volume (Best for liquids and standard culinary measures)">
+              <option value="ml">ml (Milliliter)</option>
+              <option value="l">l (Liter)</option>
+              <option value="tsp">tsp (Teaspoon)</option>
+              <option value="tbsp">tbsp (Tablespoon)</option>
+              <option value="fl oz">fl oz (Fluid Ounce)</option>
+              <option value="cup">cup (Cup)</option>
+              <option value="pt">pt (Pint)</option>
+              <option value="qt">qt (Quart)</option>
+              <option value="gal">gal (Gallon)</option>
+            </optgroup>
+            <optgroup label="Counts and Whole Units (For discrete items)">
+              <option value="pcs">pcs (Pieces)</option>
+              <option value="ea">ea (Each)</option>
+              <option value="clove">clove (For garlic)</option>
+              <option value="sprig">sprig (For herbs)</option>
+              <option value="stalk">stalk (For celery)</option>
+              <option value="head">head (For cabbage/lettuce)</option>
+              <option value="slice">slice (For bread/cheese)</option>
+            </optgroup>
+            <optgroup label="Packages and Bulk (Useful for inventory or prep recipes)">
+              <option value="can">can (Can)</option>
+              <option value="bag">bag (Bag)</option>
+              <option value="box">box (Box)</option>
+              <option value="bunch">bunch (Bunch)</option>
+              <option value="pinch">pinch (Pinch)</option>
+              <option value="dash">dash (Dash)</option>
+            </optgroup>
+          </select>
           <input class="ingredient-name-input" type="text" name="ingredient_name" placeholder="Ingredient name" aria-label="Ingredient name">
           <button class="remove-ingredient" type="button" data-remove-ingredient aria-label="Remove ingredient row">Remove</button>
         </div>
